@@ -8,6 +8,7 @@ target 'MyMarket' do
   # Pods for MyMarket
   pod 'RxSwift', '6.9.0'
   pod 'RxCocoa', '6.9.0'
+  pod 'PhoneNumberKit', '~> 4.0'
 
   target 'MyMarketTests' do
     inherit! :search_paths

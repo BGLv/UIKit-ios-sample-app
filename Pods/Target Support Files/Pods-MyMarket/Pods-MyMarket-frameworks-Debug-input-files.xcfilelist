@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-MyMarket/Pods-MyMarket-frameworks.sh
+${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework
 ${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework
 ${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework
 ${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
