@@ -21,8 +21,8 @@ protocol AnyCredentionalsCollectVM {
     typealias Input = CredentionalsCollectInput
     typealias Output = CredentionalsCollectOutput
     
-    var userPhoneTFVM: AnyMyTextFieldVM {get}
-    var passwordTFVM: AnyMyTextFieldVM {get}
+    var userPhoneTFVM: AnyMyPhoneNumberTextFieldVM {get}
+    var passwordTFVM: AnyMyTextFieldVM  {get}
     
     func transform(_: Input, disposeBag: DisposeBag) -> Output
 }

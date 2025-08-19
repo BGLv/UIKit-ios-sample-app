@@ -9,6 +9,10 @@ import RxSwift
 import RxCocoa
 
 class MyTextField: UIView {
+    func buildTextField() -> UITextField {
+        UITextField()
+    }
+    
     private(set) lazy var textField: UITextField = {
         let textField = self.buildTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -66,10 +70,6 @@ class MyTextField: UIView {
                 self?.errorLabel.alpha = isValid ? 0 : 1
             })
         ].forEach {$0.disposed(by: self.disposeBag)}
-    }
-    
-    func buildTextField() -> UITextField {
-        UITextField()
     }
     
     override init(frame: CGRect) {

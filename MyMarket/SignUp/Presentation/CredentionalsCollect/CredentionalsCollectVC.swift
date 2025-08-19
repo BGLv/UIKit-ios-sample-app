@@ -12,7 +12,7 @@ import RxCocoa
 class CredentionalsCollectVC: UIViewController {
     typealias ViewModel = AnyCredentionalsCollectVM
     
-    private lazy var phoneTextField = MyTextField()
+    private lazy var phoneTextField = MyPhoneNumberTextField()
     private lazy var passwordTextField = MyTextField()
     private lazy var collectActionButton: UIButton = {
         let button = UIButton(type: .system)

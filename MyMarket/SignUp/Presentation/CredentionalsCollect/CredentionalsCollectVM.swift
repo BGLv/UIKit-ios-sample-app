@@ -9,14 +9,14 @@ import RxSwift
 import RxCocoa
 
 class CredentionalsCollectVM: AnyCredentionalsCollectVM {
-    var userPhoneTFVM: any AnyMyTextFieldVM {
+    var userPhoneTFVM: any AnyMyPhoneNumberTextFieldVM {
         self._userPhoneTFVM
     }
     var passwordTFVM: any AnyMyTextFieldVM {
         self._passwordTFVM
     }
     
-    private let _userPhoneTFVM = MyTextFieldVM(
+    private let _userPhoneTFVM = MyPhoneTextFieldVM(
         validator: {$0.isEmpty ? "Введіть телефон" : nil}
     )
     private let _passwordTFVM = MyTextFieldVM(
