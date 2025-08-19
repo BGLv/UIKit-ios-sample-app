@@ -13,7 +13,13 @@ class CredentionalsCollectVC: UIViewController {
     typealias ViewModel = AnyCredentionalsCollectVM
     
     private lazy var phoneTextField = MyPhoneNumberTextField()
-    private lazy var passwordTextField = MyTextField()
+    private lazy var passwordTextField = {
+        let result = MyTextField()
+        result.textField.isSecureTextEntry = true
+        result.textField.rightViewMode = .always
+        result.textField.rightView = self.togglePasswordVisibilityBtn()
+        return result
+    }()
     private lazy var collectActionButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -67,5 +73,18 @@ class CredentionalsCollectVC: UIViewController {
             self.collectActionButton.isEnabled = allowed
         })
         ].forEach { $0.disposed(by: self.disposeBag) }
+    }
+    
+    private func togglePasswordVisibilityBtn() -> UIButton {
+        let button = UIButton(type: .custom)
+        button.setBackgroundImage(UIImage(systemName: "eye"), for: .normal)
+        button.setBackgroundImage(UIImage(systemName: "eye.slash"), for: .selected)
+        button.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
+        return button
+    }
+    
+    @objc private func togglePasswordVisibility(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        self.passwordTextField.textField.isSecureTextEntry.toggle()
     }
 }
