@@ -25,14 +25,6 @@ class ViewController: UIViewController {
         self.view.addInscribed(viewController.view)
         viewController.didMove(toParent: self)
         
-        /*
-        self.addChild(credentionalsCollectVC)
-        let credentionalsView = credentionalsCollectVC.view ?? UIView()
-        self.view.addSubview(credentionalsView)
-        credentionalsView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.centerXAnchor.constraint(equalTo: credentionalsView.centerXAnchor).isActive = true
-        self.view.centerYAnchor.constraint(equalTo: credentionalsView.centerYAnchor).isActive = true
-        credentionalsCollectVC.didMove(toParent: self)*/
     }
 
 
