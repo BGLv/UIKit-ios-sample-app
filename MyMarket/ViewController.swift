@@ -17,13 +17,22 @@ class ViewController: UIViewController {
         let credentionalsCollectVC = CredentionalsCollectVC()
         credentionalsCollectVC.viewModel = credentionalsCollectVM
         
+        let viewController = CompanyLogoContainerVC(
+            contentVC: credentionalsCollectVC
+        )
+        viewController.updateContentInsents(.init(top: 20, left: 25, bottom: 100, right: 25))
+        self.addChild(viewController)
+        self.view.addInscribed(viewController.view)
+        viewController.didMove(toParent: self)
+        
+        /*
         self.addChild(credentionalsCollectVC)
         let credentionalsView = credentionalsCollectVC.view ?? UIView()
         self.view.addSubview(credentionalsView)
         credentionalsView.translatesAutoresizingMaskIntoConstraints = false
         self.view.centerXAnchor.constraint(equalTo: credentionalsView.centerXAnchor).isActive = true
         self.view.centerYAnchor.constraint(equalTo: credentionalsView.centerYAnchor).isActive = true
-        credentionalsCollectVC.didMove(toParent: self)
+        credentionalsCollectVC.didMove(toParent: self)*/
     }
 
 
