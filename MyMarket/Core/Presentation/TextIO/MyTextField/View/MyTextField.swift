@@ -37,8 +37,8 @@ class MyTextField: UIView {
         let result = UILabel()
         result.text = "mock error"
         result.translatesAutoresizingMaskIntoConstraints = false
-        result.font = .systemFont(ofSize: 12, weight: .regular)
-        result.textColor = .systemRed
+        result.font = .systemFont(ofSize: 15, weight: .regular)
+        result.textColor = UIColor(red: 254/255, green: 186/255, blue: 186/255, alpha: 1)
         result.numberOfLines = 0
         result.textAlignment = .left
         return result

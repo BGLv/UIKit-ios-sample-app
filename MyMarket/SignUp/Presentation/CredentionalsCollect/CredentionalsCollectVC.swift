@@ -12,14 +12,23 @@ import RxCocoa
 class CredentionalsCollectVC: UIViewController {
     typealias ViewModel = AnyCredentionalsCollectVM
     
-    private lazy var phoneTextField = MyPhoneNumberTextField()
+    private lazy var phoneTextField = {
+        let result = MyPhoneNumberTextField()
+        result.textColor = .white
+        result.tintColor = .white
+        return result
+    }()
+    
     private lazy var passwordTextField = {
         let result = MyTextField()
         result.textField.isSecureTextEntry = true
         result.textField.rightViewMode = .always
         result.textField.rightView = self.togglePasswordVisibilityBtn()
+        result.textField.textColor = .white
+        result.textField.tintColor = .white
         return result
     }()
+    
     private lazy var collectActionButton: UIButton = {
         let button = RippleButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false

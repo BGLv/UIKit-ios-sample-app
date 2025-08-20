@@ -20,7 +20,17 @@ class MyPhoneNumberTextField: UIView {
         }
     }
     
-    private lazy var textField = { () -> MyTextField in
+    var textColor: UIColor? {
+        get {
+            self.textField.textField.textColor
+        }
+        
+        set {
+            self.textField.textField.textColor = newValue
+        }
+    }
+    
+    private(set) lazy var textField = { () -> MyTextField in
         let textField = PNKTextField()
         return textField
     }()
