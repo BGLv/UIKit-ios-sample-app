@@ -21,7 +21,7 @@ class CredentionalsCollectVC: UIViewController {
         return result
     }()
     private lazy var collectActionButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = RippleButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Collect", for: .normal)
         button.backgroundColor = .systemBlue
