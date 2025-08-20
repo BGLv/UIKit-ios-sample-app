@@ -5,6 +5,7 @@ PODS:
   - PhoneNumberKit/PhoneNumberKitCore (4.1.4)
   - PhoneNumberKit/UIKit (4.1.4):
     - PhoneNumberKit/PhoneNumberKitCore
+  - Pulley (2.9.1)
   - RxCocoa (6.9.0):
     - RxRelay (= 6.9.0)
     - RxSwift (= 6.9.0)
@@ -14,22 +15,25 @@ PODS:
 
 DEPENDENCIES:
   - PhoneNumberKit (~> 4.0)
+  - Pulley
   - RxCocoa (= 6.9.0)
   - RxSwift (= 6.9.0)
 
 SPEC REPOS:
   trunk:
     - PhoneNumberKit
+    - Pulley
     - RxCocoa
     - RxRelay
     - RxSwift
 
 SPEC CHECKSUMS:
   PhoneNumberKit: b7c01ac804bf40f4518dfb8e00b038caf787a9c2
+  Pulley: a4c28c930958f42978d69631000bc1abb82cb232
   RxCocoa: ac16414696ae706516be3e1ab00fcce5bdc9be8a
   RxRelay: 6b0c930e5cef57d5fe2032571e5e65b78e3cbdb1
   RxSwift: 31649ace6aceeb422e16ff71c60804f9c3281ed9
 
-PODFILE CHECKSUM: 4636112a4bd862d8034bd70e5f63cf946e2040b3
+PODFILE CHECKSUM: cedcf500820d717db366732109fa18776d20396a
 
 COCOAPODS: 1.16.2
