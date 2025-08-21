@@ -47,7 +47,8 @@ class CompanyLogoContainerVC: UIViewController {
         return result
     }()
     
-    private var contentVC = UIViewController()
+    private var contentVC: UIViewController?
+    private var contentView = UIView()
     private var contentInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
     private var contentTopConstr = NSLayoutConstraint()
     private var contentBottomConstr = NSLayoutConstraint()
@@ -59,6 +60,11 @@ class CompanyLogoContainerVC: UIViewController {
     convenience init(contentVC: UIViewController) {
         self.init()
         self.contentVC = contentVC
+    }
+    
+    convenience init(contentView: UIView) {
+        self.init()
+        self.contentView = contentView
     }
     
     func updateContentInsents(_ insets: UIEdgeInsets) {
@@ -89,11 +95,15 @@ class CompanyLogoContainerVC: UIViewController {
         self.scrollableContentView.addSubview(self.bottomSheetView)
         self.setupConstrainsForBottomSheet()
         
-        self.addChild(self.contentVC)
-        self.bottomSheetView.addSubview(self.contentVC.view)
+        if let unwrapped = self.contentVC {
+            self.addChild(unwrapped)
+        }
+        self.bottomSheetView.addSubview(self.contentView)
         self.setupConstrainsForContentView()
         self.updateContentInsents(self.contentInsets)
-        self.contentVC.didMove(toParent: self)
+        if let unwrapped = self.contentVC {
+            unwrapped.didMove(toParent: self)
+        }
     }
     
     private func setupConstrainsForCompanyLogo() {
@@ -118,11 +128,11 @@ class CompanyLogoContainerVC: UIViewController {
     }
     
     private func setupConstrainsForContentView() {
-        self.contentVC.view.translatesAutoresizingMaskIntoConstraints = false
-        self.contentTopConstr = self.contentVC.view.topAnchor.constraint(equalTo: self.bottomSheetView.safeAreaLayoutGuide.topAnchor)
-        self.contentBottomConstr = self.contentVC.view.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomSheetView.bottomAnchor)
-        self.contentLeadingConstr = self.contentVC.view.leadingAnchor.constraint(equalTo: self.bottomSheetView.leadingAnchor)
-        self.contentTrailingConstr = self.contentVC.view.trailingAnchor.constraint(equalTo: self.bottomSheetView.trailingAnchor)
+        self.contentView.translatesAutoresizingMaskIntoConstraints = false
+        self.contentTopConstr = self.contentView.topAnchor.constraint(equalTo: self.bottomSheetView.safeAreaLayoutGuide.topAnchor)
+        self.contentBottomConstr = self.contentView.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomSheetView.bottomAnchor)
+        self.contentLeadingConstr = self.contentView.leadingAnchor.constraint(equalTo: self.bottomSheetView.leadingAnchor)
+        self.contentTrailingConstr = self.contentView.trailingAnchor.constraint(equalTo: self.bottomSheetView.trailingAnchor)
         
         [self.contentTopConstr, self.contentBottomConstr, self.contentLeadingConstr, self.contentTrailingConstr].forEach {
             $0.isActive = true

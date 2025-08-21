@@ -36,6 +36,10 @@ class MyPhoneTextFieldVM: AnyMyPhoneNumberTextFieldVM {
         self.phoneTextField.textDriver
     }
     
+    var isValid: Driver<Bool> {
+        self.phoneTextField.isValid
+    }
+    
     init(
         text: String = "",
         validator: @escaping (String) -> ErrorMessage? = {_ in nil},

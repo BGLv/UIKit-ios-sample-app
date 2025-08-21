@@ -47,6 +47,7 @@ class MyTextField: UIView {
     private lazy var contentSV = { () -> UIStackView in
         let result = UIStackView()
         result.axis = .vertical
+        result.spacing = 5
         return result
     }()
     

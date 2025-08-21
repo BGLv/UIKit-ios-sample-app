@@ -35,6 +35,12 @@ class MyTextFieldVM: AnyMyTextFieldVM {
         self.textBR.asDriver()
     }
     
+    var isValid: Driver<Bool> {
+        self.textBR.asDriver().map { [validator] text in
+            validator(text) == nil
+        }
+    }
+    
     private let textBR: BehaviorRelay<String>
     private let validationResultBR = BehaviorRelay<ErrorMessage?>(value: "")
     private let displayValidationAllowedBR = BehaviorRelay(value: false)

@@ -9,6 +9,20 @@ import RxSwift
 import RxCocoa
 
 class CredentionalsCollectVM: AnyCredentionalsCollectVM {
+    var validCredentionals: Driver<Credentionals?> {
+        Driver.combineLatest(
+            self._passwordTFVM.textDriver,
+            self._passwordTFVM.isValid,
+            self._userPhoneTFVM.textDriver,
+            self._userPhoneTFVM.isValid
+        ) { password, isPasswordValid, phoneNumber, isPhoneNumberValid -> Credentionals? in
+            guard isPasswordValid && isPhoneNumberValid else {
+                return nil
+            }
+            return Credentionals(phoneNumber: phoneNumber, password: password)
+        }
+    }
+    
     var userPhoneTFVM: any AnyMyPhoneNumberTextFieldVM {
         self._userPhoneTFVM
     }
@@ -23,16 +37,8 @@ class CredentionalsCollectVM: AnyCredentionalsCollectVM {
         validator: {$0.isEmpty ? "Введіть пароль" : nil}
     )
     
-    func transform(_ input: Input, disposeBag: DisposeBag) -> Output {
-        input.collectActionEvent.do(onNext: { [weak self] in
-            self?._passwordTFVM.displayValidationAllowed = true
-            self?._userPhoneTFVM.displayValidationAllowed = true
-        }).drive().disposed(by: disposeBag)
-        
-        return Output(
-            collectActionTitle: .just("mock title"),
-            collectActionAllowed: .just(true)
-        )
+    func allowShowValidation() {
+        self._passwordTFVM.displayValidationAllowed = true
+        self._userPhoneTFVM.displayValidationAllowed = true
     }
-    
 }

@@ -29,21 +29,10 @@ class CredentionalsCollectVC: UIViewController {
         return result
     }()
     
-    private lazy var collectActionButton: UIButton = {
-        let button = RippleButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Collect", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.tintColor = .white
-        button.layer.cornerRadius = 8
-        return button
-    }()
-    
     private lazy var contentSV = { () -> UIStackView in
         let result = UIStackView(arrangedSubviews: [
             self.phoneTextField,
-            self.passwordTextField,
-            self.collectActionButton
+            self.passwordTextField
         ])
         result.axis = .vertical
         result.spacing = 10
@@ -68,20 +57,6 @@ class CredentionalsCollectVC: UIViewController {
         self.disposeBag = DisposeBag()
         self.phoneTextField.bind(self.viewModel.userPhoneTFVM)
         self.passwordTextField.bind(self.viewModel.passwordTFVM)
-        
-        let input = ViewModel.Input(
-            collectActionEvent: self.collectActionButton.rx.tap.asDriver()
-        )
-        let output = self.viewModel.transform(input, disposeBag: self.disposeBag)
-        [
-        output.collectActionTitle.drive(
-            self.collectActionButton.rx.title(for: .normal)
-        ),
-        output.collectActionAllowed.drive(onNext: { [weak self] allowed in
-            guard let self = self else {return}
-            self.collectActionButton.isEnabled = allowed
-        })
-        ].forEach { $0.disposed(by: self.disposeBag) }
     }
     
     private func togglePasswordVisibilityBtn() -> UIButton {

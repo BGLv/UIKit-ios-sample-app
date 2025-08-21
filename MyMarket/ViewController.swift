@@ -13,7 +13,19 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let credentionalsCollectVM = CredentionalsCollectVM()
+        let logInVM = LogInVM(
+            credentionalsCollectVM: CredentionalsCollectVM(),
+            logInUseCase: StubLogInUseCase()
+        )
+        let logInVC = LogInVC()
+        logInVC.viewModel = logInVM
+        
+        self.addChild(logInVC)
+        self.view.addInscribed(logInVC.view)
+        logInVC.didMove(toParent: self)
+        
+        
+        /*let credentionalsCollectVM = CredentionalsCollectVM()
         let credentionalsCollectVC = CredentionalsCollectVC()
         credentionalsCollectVC.viewModel = credentionalsCollectVM
         
@@ -23,7 +35,7 @@ class ViewController: UIViewController {
         viewController.updateContentInsents(.init(top: 20, left: 25, bottom: 100, right: 25))
         self.addChild(viewController)
         self.view.addInscribed(viewController.view)
-        viewController.didMove(toParent: self)
+        viewController.didMove(toParent: self)*/
         
     }
 
