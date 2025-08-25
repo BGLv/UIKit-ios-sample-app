@@ -27,12 +27,21 @@ class ViewController: UIViewController {
         logInVC.didMove(toParent: self)
         */
         
+        /*
         let confirmationVM = OTPConfirmationVM()
         let confirmationVC = OTPConfirmationVC(viewModel: confirmationVM)
         self.addChild(confirmationVC)
         self.view.addInscribed(confirmationVC.view)
         confirmationVC.didMove(toParent: self)
+         */
         
+        let navContr = UINavigationController()
+        self.addChild(navContr)
+        self.view.addInscribed(navContr.view)
+        navContr.didMove(toParent: self)
+        
+        let authCoord = AuthCoordinator(navigationController: navContr)
+        authCoord.start()
     }
 
 

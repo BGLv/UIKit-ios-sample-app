@@ -20,7 +20,6 @@ class LogInVC: UIViewController {
         self.addChild(self.credentionalsCollectVC)
         result.addArrangedSubview(self.credentionalsCollectVC.view)
         result.addArrangedSubview(self.collectActionButton)
-        result.addArrangedSubview(OTPView())
         self.credentionalsCollectVC.didMove(toParent: self)
         
         self.credentionalsCollectVC.view.leadingAnchor.constraint(equalTo: result.leadingAnchor, constant: 30).isActive = true
