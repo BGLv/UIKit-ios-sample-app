@@ -10,6 +10,8 @@ import RxSwift
 import RxCocoa
 
 class ViewController: UIViewController {
+    
+    var authCoord: AuthCoordinator!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +44,8 @@ class ViewController: UIViewController {
         
         let authCoord = AuthCoordinator(navigationController: navContr)
         authCoord.start()
+        
+        self.authCoord = authCoord
     }
 
 

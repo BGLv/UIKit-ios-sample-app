@@ -14,11 +14,14 @@ class LogInVM: AnyLogInVM {
     
     private let _credentionalsCollectVM: CredentionalsCollectVM
     private let logInUseCase: LogInUseCase
+    private let onSuccess: () -> Void
     
     init(credentionalsCollectVM: CredentionalsCollectVM,
-         logInUseCase: LogInUseCase) {
+         logInUseCase: LogInUseCase,
+         onLogIn onSuccess: @escaping () -> Void) {
         self._credentionalsCollectVM = credentionalsCollectVM
         self.logInUseCase = logInUseCase
+        self.onSuccess = onSuccess
     }
     
     func transform(_ input: Input, disposeBag: DisposeBag) -> Output {
@@ -28,7 +31,7 @@ class LogInVM: AnyLogInVM {
             .compactMap {$0}
             .flatMapLatest {[logInUseCase] in
                 logInUseCase.logIn(phone: $0.phoneNumber, password: $0.password).asDriver(onErrorDriveWith: .empty())
-            }.drive()
+            }.drive(onNext: {[weak self] in self?.onSuccess()})
             .disposed(by: disposeBag)
         return Output()
     }
