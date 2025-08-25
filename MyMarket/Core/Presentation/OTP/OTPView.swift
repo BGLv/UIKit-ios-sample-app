@@ -6,9 +6,19 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class OTPView: UIView, UITextFieldDelegate {
     var codeSize = 4
+    
+    var otp: Driver<String?> {
+        Driver.zip(self.textFields.map {$0.rx.text.orEmpty.asDriver()})
+            .map { [weak self] in
+                let code = $0.joined()
+                return code.count == self?.codeSize ? code : nil
+            }
+    }
     
     private let contentSV = {
         let result = UIStackView()
