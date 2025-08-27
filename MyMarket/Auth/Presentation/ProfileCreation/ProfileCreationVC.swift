@@ -31,7 +31,7 @@ class ProfileCreationVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Already have an account?", for: .normal)
         button.setTitleColor(.systemGray, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         return button
     }()
 

@@ -49,7 +49,7 @@ class LogInVC: UIViewController {
     private lazy var signUpButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
-        button.setTitleColor(.systemGreen, for: .normal)
+        button.setTitleColor(.systemGray, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         return button
     }()
