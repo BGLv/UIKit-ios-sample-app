@@ -31,9 +31,11 @@ class CredentionalsCollectVM: AnyCredentionalsCollectVM {
     }
     
     private let _userPhoneTFVM = MyPhoneTextFieldVM(
+        title: "Phone number",
         validator: {$0.isEmpty ? "Введіть телефон" : nil}
     )
     private let _passwordTFVM = MyTextFieldVM(
+        title: "Password",
         validator: {$0.isEmpty ? "Введіть пароль" : nil}
     )
     

@@ -12,6 +12,7 @@ struct MyTextFieldInput {
 }
 
 struct MyTextFieldOutput {
+    let title: Driver<String>
     let text: Driver<String>
     let isValid: Driver<Bool>
     let validationText: Driver<String>

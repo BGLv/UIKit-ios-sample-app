@@ -48,11 +48,15 @@ class MyTextFieldVM: AnyMyTextFieldVM {
     private let validator: (String) -> ErrorMessage?
     private let textModifier: (String) -> String
     
+    private let title: String
+    
     init(
+        title: String = "",
         text: String = "",
         validator: @escaping (String) -> ErrorMessage? = {_ in nil},
         textModifier: @escaping (String) -> String = {return $0}
     ) {
+        self.title = title
         self.textBR = BehaviorRelay(value: text)
         self.validator = validator
         self.textModifier = textModifier
@@ -78,6 +82,7 @@ class MyTextFieldVM: AnyMyTextFieldVM {
         let validationText = validationResOut.map {$0 ?? ""}
         
         return Output(
+            title: .just(self.title),
             text: self.textBR.asDriver(),
             isValid: isValid,
             validationText: validationText

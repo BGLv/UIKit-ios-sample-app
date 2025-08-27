@@ -13,6 +13,16 @@ class MyTextField: UIView {
         UITextField()
     }
     
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.textColor = .white
+        label.numberOfLines = 1
+        label.textAlignment = .left
+        return label
+    }()
+    
     private(set) lazy var textField: UITextField = {
         let textField = self.buildTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -64,6 +74,7 @@ class MyTextField: UIView {
         let output = viewModel.transform(input, disposeBag: self.disposeBag)
         
         [
+            output.title.drive(self.titleLabel.rx.text),
             output.text.drive(self.textField.rx.text),
             output.validationText.map {$0.isEmpty ? " " : $0}
                 .drive(self.errorLabel.rx.text),
@@ -85,6 +96,7 @@ class MyTextField: UIView {
     
     private func commonInit() {
         self.addInscribed(self.contentSV)
+        self.contentSV.addArrangedSubview(self.titleLabel)
         self.contentSV.addArrangedSubview(self.textField)
         self.contentSV.addArrangedSubview(self.underline)
         self.contentSV.addArrangedSubview(self.errorLabel)

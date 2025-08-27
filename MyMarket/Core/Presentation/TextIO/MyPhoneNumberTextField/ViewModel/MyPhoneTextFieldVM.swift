@@ -41,11 +41,13 @@ class MyPhoneTextFieldVM: AnyMyPhoneNumberTextFieldVM {
     }
     
     init(
+        title: String = "",
         text: String = "",
         validator: @escaping (String) -> ErrorMessage? = {_ in nil},
         textModifier: @escaping (String) -> String = {return $0}
     ) {
         self.phoneTextField = MyTextFieldVM(
+            title: title,
             text: text,
             validator: validator,
             textModifier: textModifier

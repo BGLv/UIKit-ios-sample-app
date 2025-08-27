@@ -52,10 +52,12 @@ class ProfileCollectVM: AnyProfileCollectVM {
     // MARK: - Private
     
     private let _usernameTFVM = MyTextFieldVM(
+        title: "Username",
         validator: { $0.isEmpty ? "Введіть ім’я користувача" : nil }
     )
     
     private let _emailTFVM = MyTextFieldVM(
+        title: "Email",
         validator: { text in
             if text.isEmpty {
                 return "Введіть email"
@@ -65,10 +67,12 @@ class ProfileCollectVM: AnyProfileCollectVM {
     )
     
     private let _passwordTFVM = MyTextFieldVM(
+        title: "Password",
         validator: { $0.isEmpty ? "Введіть пароль" : nil }
     )
     
     private let _confirmPasswordTFVM = MyTextFieldVM(
+        title: "Confirm password",
         validator: { $0.isEmpty ? "Підтвердіть пароль" : nil }
     )
     
