@@ -14,17 +14,22 @@ class LogInVM: AnyLogInVM {
     
     private let _credentionalsCollectVM: CredentionalsCollectVM
     private let logInUseCase: LogInUseCase
+    private let onSignUp: () -> Void
     private let onSuccess: () -> Void
     
     init(credentionalsCollectVM: CredentionalsCollectVM,
          logInUseCase: LogInUseCase,
+         onSignUp: @escaping () -> Void,
          onLogIn onSuccess: @escaping () -> Void) {
         self._credentionalsCollectVM = credentionalsCollectVM
         self.logInUseCase = logInUseCase
+        self.onSignUp = onSignUp
         self.onSuccess = onSuccess
     }
     
     func transform(_ input: Input, disposeBag: DisposeBag) -> Output {
+        input.onSignUpAction.drive(onNext: {[weak self] in self?.onSignUp()})
+            .disposed(by: disposeBag)
         input.onLogInAction
             .do(onNext: { [weak self] in self?._credentionalsCollectVM.allowShowValidation()})
             .withLatestFrom(self._credentionalsCollectVM.validCredentionals)

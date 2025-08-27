@@ -9,6 +9,7 @@ import RxCocoa
 
 struct LogInInput {
     let onLogInAction: Driver<Void>
+    let onSignUpAction: Driver<Void>
 }
 
 struct LogInOutput {

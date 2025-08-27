@@ -20,6 +20,7 @@ class LogInVC: UIViewController {
         self.addChild(self.credentionalsCollectVC)
         result.addArrangedSubview(self.credentionalsCollectVC.view)
         result.addArrangedSubview(self.collectActionButton)
+        result.addArrangedSubview(self.signUpButton)
         self.credentionalsCollectVC.didMove(toParent: self)
         
         self.credentionalsCollectVC.view.leadingAnchor.constraint(equalTo: result.leadingAnchor, constant: 30).isActive = true
@@ -45,6 +46,14 @@ class LogInVC: UIViewController {
         return button
     }()
     
+    private lazy var signUpButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Sign Up", for: .normal)
+        button.setTitleColor(.systemGreen, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        return button
+    }()
+      
     var viewModel: ViewModel!
     private var disposeBag = DisposeBag()
     
@@ -58,7 +67,10 @@ class LogInVC: UIViewController {
     
     private func bind() {
         self.disposeBag = DisposeBag()
-        let input = ViewModel.Input(onLogInAction: self.collectActionButton.rx.tap.asDriver())
+        let input = ViewModel.Input(
+            onLogInAction: self.collectActionButton.rx.tap.asDriver(),
+            onSignUpAction: self.signUpButton.rx.tap.asDriver()
+        )
         let output = self.viewModel.transform(input, disposeBag: disposeBag)
     }
 }
