@@ -23,7 +23,6 @@ class ProfileCollectVC: UIViewController {
     
     private lazy var usernameTextField = {
         let result = MyTextField()
-        result.textField.placeholder = "Username"
         result.textField.textColor = .white
         result.textField.tintColor = .white
         return result
@@ -31,7 +30,6 @@ class ProfileCollectVC: UIViewController {
     
     private lazy var emailTextField = {
         let result = MyTextField()
-        result.textField.placeholder = "Email"
         result.textField.keyboardType = .emailAddress
         result.textField.autocapitalizationType = .none
         result.textField.textColor = .white
@@ -41,7 +39,6 @@ class ProfileCollectVC: UIViewController {
     
     private lazy var passwordTextField = {
         let result = MyTextField()
-        result.textField.placeholder = "Password"
         result.textField.isSecureTextEntry = true
         result.textField.rightViewMode = .always
         result.textField.rightView = self.togglePasswordVisibilityBtn(for: result.textField)
@@ -52,7 +49,6 @@ class ProfileCollectVC: UIViewController {
     
     private lazy var confirmPasswordTextField = {
         let result = MyTextField()
-        result.textField.placeholder = "Confirm Password"
         result.textField.isSecureTextEntry = true
         result.textField.rightViewMode = .always
         result.textField.rightView = self.togglePasswordVisibilityBtn(for: result.textField)

@@ -7,68 +7,76 @@
 import UIKit
 
 class AuthCoordinator {
-    let navigationController: UINavigationController
+    private let navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
+    // MARK: - Public
+    
     func start() {
         let logInVC = self.buildLoginVC(
-            onSignUp: { [weak self] in
-                guard let self = self else {return}
-                let viewController = self.buildProfileCreationVC(
-                    onAlreadyHaveAccount: { [weak self] in
-                        self?.navigationController.popViewController(animated: true)
-                    },
-                    onSuccess: { [weak self] in
-                        guard let self = self else {return}
-                        self.navigationController.pushViewController(self.buildConfirmationVC(), animated: true)
-                    }
-                )
-                self.navigationController.pushViewController(viewController, animated: true)
-            },
-            onLogIn: { [weak self] in
-            guard let self = self else {return}
-            self.navigationController.pushViewController(self.buildConfirmationVC(), animated: true)
-        })
-        self.navigationController.pushViewController(logInVC, animated: true)
+            onSignUp: { [weak self] in self?.showProfileCreation() },
+            onLogIn: { [weak self] in self?.showConfirmation() }
+        )
+        navigationController.setViewControllers([logInVC], animated: false)
     }
+    
+    // MARK: - Navigation
+    
+    private func showProfileCreation() {
+        let vc = buildProfileCreationVC(
+            onAlreadyHaveAccount: { [weak self] in
+                self?.navigationController.popViewController(animated: true)
+            },
+            onSuccess: { [weak self] in
+                self?.showConfirmation()
+            }
+        )
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    private func showConfirmation() {
+        let vc = buildConfirmationVC()
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    // MARK: - Builders
     
     private func buildLoginVC(
         onSignUp: @escaping () -> Void,
         onLogIn: @escaping () -> Void
     ) -> UIViewController {
-        let logInVM = LogInVM(
+        let viewModel = LogInVM(
             credentionalsCollectVM: CredentionalsCollectVM(),
             logInUseCase: StubLogInUseCase(),
             onSignUp: onSignUp,
             onLogIn: onLogIn
         )
-        let logInVC = LogInVC()
-        logInVC.viewModel = logInVM
-        return logInVC
+        let viewController = LogInVC()
+        viewController.viewModel = viewModel
+        return viewController
     }
     
     private func buildProfileCreationVC(
         onAlreadyHaveAccount: @escaping () -> Void,
         onSuccess: @escaping () -> Void
     ) -> UIViewController {
-        let profileCreationVC = ProfileCreationVC()
-        let profileCreationVM = ProfileCreationVM(
+        let viewModel = ProfileCreationVM(
             profileCollectVM: ProfileCollectVM(),
             createProfileUseCase: StubCreateProfileUseCase(),
             onAlreadyHaveAccount: onAlreadyHaveAccount,
             onSuccess: onSuccess
         )
-        profileCreationVC.viewModel = profileCreationVM
-        
-        return profileCreationVC
+        let viewController = ProfileCreationVC()
+        viewController.viewModel = viewModel
+        return viewController
     }
     
     private func buildConfirmationVC() -> UIViewController {
-        let otpVM = OTPConfirmationVM()
-        let otpVC = OTPConfirmationVC(viewModel: otpVM)
-        return otpVC
+        let viewModel = OTPConfirmationVM()
+        let viewController = OTPConfirmationVC(viewModel: viewModel)
+        return viewController
     }
 }
