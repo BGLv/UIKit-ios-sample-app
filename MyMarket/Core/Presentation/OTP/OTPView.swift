@@ -50,6 +50,7 @@ class OTPView: UIView, UITextFieldDelegate {
     
     private func buildTF() -> UITextField {
         let result = UITextField()
+        result.backgroundColor = .white
         result.borderStyle = .roundedRect
         result.translatesAutoresizingMaskIntoConstraints = false
         result.heightAnchor.constraint(equalToConstant: 50).isActive = true
