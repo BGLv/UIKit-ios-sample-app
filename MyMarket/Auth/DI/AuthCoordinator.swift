@@ -17,7 +17,12 @@ class AuthCoordinator {
         let logInVC = self.buildLoginVC(
             onSignUp: { [weak self] in
                 guard let self = self else {return}
-                self.navigationController.pushViewController(self.buildProfileCreationVC(), animated: true)
+                let viewController = self.buildProfileCreationVC(
+                    onAlreadyHaveAccount: { [weak self] in
+                        self?.navigationController.popViewController(animated: true)
+                    }
+                )
+                self.navigationController.pushViewController(viewController, animated: true)
             },
             onLogIn: { [weak self] in
             guard let self = self else {return}
@@ -41,11 +46,14 @@ class AuthCoordinator {
         return logInVC
     }
     
-    private func buildProfileCreationVC() -> UIViewController {
+    private func buildProfileCreationVC(
+        onAlreadyHaveAccount: @escaping () -> Void
+    ) -> UIViewController {
         let profileCreationVC = ProfileCreationVC()
         let profileCreationVM = ProfileCreationVM(
             profileCollectVM: ProfileCollectVM(),
             createProfileUseCase: StubCreateProfileUseCase(),
+            onAlreadyHaveAccount: onAlreadyHaveAccount,
             onSuccess: {}
         )
         profileCreationVC.viewModel = profileCreationVM

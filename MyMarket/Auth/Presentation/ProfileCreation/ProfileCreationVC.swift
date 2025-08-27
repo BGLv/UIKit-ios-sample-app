@@ -26,6 +26,16 @@ class ProfileCreationVC: UIViewController {
         return button
     }()
     
+    private lazy var alreadyHaveButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Already have an account?", for: .normal)
+        button.setTitleColor(.systemGray, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+        return button
+    }()
+
+    
     private lazy var contentView: UIStackView = {
         let result = UIStackView()
         result.axis = .vertical
@@ -39,6 +49,9 @@ class ProfileCreationVC: UIViewController {
         
         // add action button
         result.addArrangedSubview(self.collectActionButton)
+        
+        // After collectActionButton
+        result.addArrangedSubview(self.alreadyHaveButton)
         
         // Constraints for width
         self.profileCollectVC.view.leadingAnchor.constraint(equalTo: result.leadingAnchor, constant: 30).isActive = true
@@ -72,7 +85,8 @@ class ProfileCreationVC: UIViewController {
         self.disposeBag = DisposeBag()
         
         let input = ViewModel.Input(
-            onProfileCreateAction: self.collectActionButton.rx.tap.asDriver()
+            onProfileCreateAction: self.collectActionButton.rx.tap.asDriver(),
+            onAlreadyHaveAction: self.alreadyHaveButton.rx.tap.asDriver()
         )
         let output = self.viewModel.transform(input, disposeBag: disposeBag)
     }

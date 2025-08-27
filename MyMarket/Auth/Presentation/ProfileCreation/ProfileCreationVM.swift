@@ -16,19 +16,25 @@ class ProfileCreationVM: AnyProfileCreationVM {
     // MARK: - Private
     private let _profileCollectVM: ProfileCollectVM
     private let createProfileUseCase: CreateProfileUseCase
+    private let onAlreadyHaveAccount: () -> Void
     private let onSuccess: () -> Void
     
     // MARK: - Init
     init(profileCollectVM: ProfileCollectVM,
          createProfileUseCase: CreateProfileUseCase,
+         onAlreadyHaveAccount: @escaping () -> Void,
          onSuccess: @escaping () -> Void) {
         self._profileCollectVM = profileCollectVM
         self.createProfileUseCase = createProfileUseCase
+        self.onAlreadyHaveAccount = onAlreadyHaveAccount
         self.onSuccess = onSuccess
     }
     
     // MARK: - Transform
     func transform(_ input: Input, disposeBag: DisposeBag) -> Output {
+        
+        input.onAlreadyHaveAction.drive(onNext: {[onAlreadyHaveAccount] in onAlreadyHaveAccount()})
+            .disposed(by: disposeBag)
         
         input.onProfileCreateAction
             .do(onNext: { [weak self] in

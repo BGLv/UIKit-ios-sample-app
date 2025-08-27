@@ -39,7 +39,7 @@ class LogInVC: UIViewController {
     private lazy var collectActionButton: UIButton = {
         let button = RippleButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Collect", for: .normal)
+        button.setTitle("Log In", for: .normal)
         button.backgroundColor = .systemBlue
         button.tintColor = .white
         button.layer.cornerRadius = 8

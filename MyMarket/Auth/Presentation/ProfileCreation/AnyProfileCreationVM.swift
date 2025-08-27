@@ -9,6 +9,7 @@ import RxCocoa
 
 struct ProfileCreationInput {
     let onProfileCreateAction: Driver<Void>
+    let onAlreadyHaveAction: Driver<Void>
 }
 
 struct ProfileCreationOutput {
