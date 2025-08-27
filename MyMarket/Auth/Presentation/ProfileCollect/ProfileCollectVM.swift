@@ -18,38 +18,47 @@ class ProfileCollectVM: AnyProfileCollectVM {
     // MARK: - Public
     
     var validProfile: Driver<ProfileData?> {
-        Driver.combineLatest(
+        let passwordInfo = Driver.combineLatest(
+            self._passwordTFVM.textDriver,
+            self._passwordTFVM.isValid,
+            self._confirmPasswordTFVM.textDriver
+        ) { password, isValid, confirmPassword in
+            (password: password, isValid: isValid && password == confirmPassword)
+        }
+        
+        return Driver.combineLatest(
+            self._userPhoneTFVM.textDriver,
+            self._userPhoneTFVM.isValid,
             self._usernameTFVM.textDriver,
             self._usernameTFVM.isValid,
             self._emailTFVM.textDriver,
             self._emailTFVM.isValid,
-            self._passwordTFVM.textDriver,
-            self._passwordTFVM.isValid,
-            self._confirmPasswordTFVM.textDriver,
-            self._confirmPasswordTFVM.isValid
-        ) { username, isUsernameValid,
+            passwordInfo
+        ) { userPhone, isPhoneValid,
+            username, isUsernameValid,
             email, isEmailValid,
-            password, isPasswordValid,
-            confirmPassword, isConfirmPasswordValid -> ProfileData? in
+            passwordInfo -> ProfileData? in
             
             guard isUsernameValid,
                   isEmailValid,
-                  isPasswordValid,
-                  isConfirmPasswordValid,
-                  password == confirmPassword else {
+                  passwordInfo.isValid else {
                 return nil
             }
             
-            return ProfileData(username: username, email: email, password: password)
+            return ProfileData(username: username, email: email, password: passwordInfo.password)
         }
     }
-    
+    var userPhoneTFVM: any AnyMyPhoneNumberTextFieldVM { self._userPhoneTFVM }
     var usernameTFVM: any AnyMyTextFieldVM { self._usernameTFVM }
     var emailTFVM: any AnyMyTextFieldVM { self._emailTFVM }
     var passwordTFVM: any AnyMyTextFieldVM { self._passwordTFVM }
     var confirmPasswordTFVM: any AnyMyTextFieldVM { self._confirmPasswordTFVM }
     
     // MARK: - Private
+    private let _userPhoneTFVM = MyPhoneTextFieldVM(
+        title: "Phone Number",
+        validator: { $0.isEmpty ? "Please enter your phone number" : nil }
+    )
     
     private let _usernameTFVM = MyTextFieldVM(
         title: "Username",
@@ -79,6 +88,7 @@ class ProfileCollectVM: AnyProfileCollectVM {
     // MARK: - Public helpers
     
     func allowShowValidation() {
+        self._userPhoneTFVM.displayValidationAllowed = true
         self._usernameTFVM.displayValidationAllowed = true
         self._emailTFVM.displayValidationAllowed = true
         self._passwordTFVM.displayValidationAllowed = true

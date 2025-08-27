@@ -14,6 +14,13 @@ class ProfileCollectVC: UIViewController {
     
     // MARK: - UI
     
+    private lazy var phoneTextField = {
+        let result = MyPhoneNumberTextField()
+        result.textColor = .white
+        result.tintColor = .white
+        return result
+    }()
+    
     private lazy var usernameTextField = {
         let result = MyTextField()
         result.textField.placeholder = "Username"
@@ -56,6 +63,7 @@ class ProfileCollectVC: UIViewController {
     
     private lazy var contentSV = { () -> UIStackView in
         let result = UIStackView(arrangedSubviews: [
+            self.phoneTextField,
             self.usernameTextField,
             self.emailTextField,
             self.passwordTextField,
@@ -91,6 +99,7 @@ class ProfileCollectVC: UIViewController {
     private func bind() {
         self.disposeBag = DisposeBag()
         
+        self.phoneTextField.bind(self.viewModel.userPhoneTFVM)
         self.usernameTextField.bind(self.viewModel.usernameTFVM)
         self.emailTextField.bind(self.viewModel.emailTFVM)
         self.passwordTextField.bind(self.viewModel.passwordTFVM)

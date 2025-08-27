@@ -9,6 +9,7 @@ import RxSwift
 import RxCocoa
 
 protocol AnyProfileCollectVM {
+    var userPhoneTFVM: AnyMyPhoneNumberTextFieldVM {get}
     var usernameTFVM: AnyMyTextFieldVM { get }
     var emailTFVM: AnyMyTextFieldVM { get }
     var passwordTFVM: AnyMyTextFieldVM { get }
