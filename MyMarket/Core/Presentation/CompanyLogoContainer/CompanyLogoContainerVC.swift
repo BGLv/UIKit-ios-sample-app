@@ -146,7 +146,20 @@ class CompanyLogoContainerVC: UIViewController {
     
     @objc override func keyboardWillAppear(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
               let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        
+        let keyboardSuggestionsSpace: CGFloat = 100
+        let screenHeight = self.view.frame.height
+        let contentHeight = self.contentView.frame.height + self.contentInsets.top + self.contentInsets.bottom
+        let visibleHeight = screenHeight - keyboardFrame.height - keyboardSuggestionsSpace
+        let invisiblePart = contentHeight - visibleHeight
+        
+        if invisiblePart > 0 {
+            self.scrollView.contentInset.bottom = invisiblePart
+        } else {
+            self.scrollView.contentInset.bottom = 0
+        }
         
         UIView.animate(withDuration: animationDuration) {
             self.bottomSheetTopConstr.constant = 0
@@ -157,6 +170,8 @@ class CompanyLogoContainerVC: UIViewController {
     @objc override func keyboardWillHide(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
               let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+        
+        self.scrollView.contentInset.bottom = 0
         
         UIView.animate(withDuration: animationDuration) {
             self.bottomSheetTopConstr.constant = self.view.bounds.height * 0.2
