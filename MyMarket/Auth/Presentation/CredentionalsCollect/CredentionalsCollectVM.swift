@@ -9,6 +9,8 @@ import RxSwift
 import RxCocoa
 
 class CredentionalsCollectVM: AnyCredentionalsCollectVM {
+    
+    // MARK: - Public
     var validCredentionals: Driver<Credentionals?> {
         Driver.combineLatest(
             self._passwordTFVM.textDriver,
@@ -26,21 +28,26 @@ class CredentionalsCollectVM: AnyCredentionalsCollectVM {
     var userPhoneTFVM: any AnyMyPhoneNumberTextFieldVM {
         self._userPhoneTFVM
     }
+    
     var passwordTFVM: any AnyMyTextFieldVM {
         self._passwordTFVM
     }
     
+    // MARK: - Private
     private let _userPhoneTFVM = MyPhoneTextFieldVM(
-        title: "Phone number",
-        validator: {$0.isEmpty ? "Введіть телефон" : nil}
-    )
-    private let _passwordTFVM = MyTextFieldVM(
-        title: "Password",
-        validator: {$0.isEmpty ? "Введіть пароль" : nil}
+        title: "Phone Number",
+        validator: { $0.isEmpty ? "Please enter your phone number" : nil }
     )
     
+    private let _passwordTFVM = MyTextFieldVM(
+        title: "Password",
+        validator: { $0.isEmpty ? "Please enter your password" : nil }
+    )
+    
+    // MARK: - Public helpers
     func allowShowValidation() {
         self._passwordTFVM.displayValidationAllowed = true
         self._userPhoneTFVM.displayValidationAllowed = true
     }
 }
+

@@ -53,27 +53,27 @@ class ProfileCollectVM: AnyProfileCollectVM {
     
     private let _usernameTFVM = MyTextFieldVM(
         title: "Username",
-        validator: { $0.isEmpty ? "Введіть ім’я користувача" : nil }
+        validator: { $0.isEmpty ? "Please enter a username" : nil }
     )
     
     private let _emailTFVM = MyTextFieldVM(
         title: "Email",
         validator: { text in
             if text.isEmpty {
-                return "Введіть email"
+                return "Please enter an email"
             }
-            return text.contains("@") ? nil : "Некоректний email"
+            return text.contains("@") ? nil : "Invalid email address"
         }
     )
     
     private let _passwordTFVM = MyTextFieldVM(
         title: "Password",
-        validator: { $0.isEmpty ? "Введіть пароль" : nil }
+        validator: { $0.isEmpty ? "Please enter a password" : nil }
     )
     
     private let _confirmPasswordTFVM = MyTextFieldVM(
-        title: "Confirm password",
-        validator: { $0.isEmpty ? "Підтвердіть пароль" : nil }
+        title: "Confirm Password",
+        validator: { $0.isEmpty ? "Please confirm your password" : nil }
     )
     
     // MARK: - Public helpers
