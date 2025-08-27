@@ -10,6 +10,7 @@ import RxCocoa
 struct OTPConfirmationInput {
     let otp: Driver<String?>
     let sendSmsAgain: Driver<Void>
+    let goBack: Driver<Void>
 }
 
 struct OTPConfirmationOutput {

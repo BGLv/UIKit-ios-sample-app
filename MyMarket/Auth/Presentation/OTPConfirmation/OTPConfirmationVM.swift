@@ -10,8 +10,16 @@ import RxCocoa
 class OTPConfirmationVM: AnyOTPConfirmationVM {
     
     private let cooldown: Int = 30
+    private let onGoBack: () -> Void
+    
+    init(onGoBack: @escaping () -> Void) {
+        self.onGoBack = onGoBack
+    }
     
     func transform(_ input: Input, disposeBag: DisposeBag) -> Output {
+        input.goBack.drive(onNext: {[onGoBack] in onGoBack()})
+            .disposed(by: disposeBag)
+        
         let sendTimer = input.sendSmsAgain.startWith(())
             .flatMapLatest {[weak self] in self?.buildTimerObs() ?? .empty()}
         let sendSmsText = sendTimer

@@ -21,6 +21,15 @@ class OTPConfirmationVC: UIViewController {
         return result
     }()
     
+    private lazy var goBackButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Previous screen", for: .normal)
+        button.setTitleColor(.systemGray, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        return button
+    }()
+    
     private lazy var contentView = {
         let result = UIStackView()
         result.axis = .vertical
@@ -28,6 +37,7 @@ class OTPConfirmationVC: UIViewController {
         result.spacing = 10
         result.addArrangedSubview(otpView)
         result.addArrangedSubview(sendCodeAgainBtn)
+        result.addArrangedSubview(goBackButton)
         return result
     }()
     
@@ -56,7 +66,8 @@ class OTPConfirmationVC: UIViewController {
         self.disposeBag = DisposeBag()
         let input = ViewModel.Input(
             otp: self.otpView.otp,
-            sendSmsAgain: self.sendCodeAgainBtn.rx.tap.asDriver()
+            sendSmsAgain: self.sendCodeAgainBtn.rx.tap.asDriver(),
+            goBack: self.goBackButton.rx.tap.asDriver()
         )
         let output = self.viewModel.transform(input, disposeBag: self.disposeBag)
         [

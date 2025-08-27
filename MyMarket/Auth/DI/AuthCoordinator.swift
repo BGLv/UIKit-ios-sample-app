@@ -75,7 +75,9 @@ class AuthCoordinator {
     }
     
     private func buildConfirmationVC() -> UIViewController {
-        let viewModel = OTPConfirmationVM()
+        let viewModel = OTPConfirmationVM(
+            onGoBack: {[weak self] in self?.navigationController.popViewController(animated: true)}
+        )
         let viewController = OTPConfirmationVC(viewModel: viewModel)
         return viewController
     }
