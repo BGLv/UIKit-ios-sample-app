@@ -36,7 +36,9 @@ class LogInVM: AnyLogInVM {
             .compactMap {$0}
             .flatMapLatest {[logInUseCase] in
                 logInUseCase.logIn(phone: $0.phoneNumber, password: $0.password).asDriver(onErrorDriveWith: .empty())
-            }.drive(onNext: {[weak self] in self?.onSuccess()})
+            }.drive(onNext: {[weak self] in
+                self?.onSuccess()
+            })
             .disposed(by: disposeBag)
         return Output()
     }

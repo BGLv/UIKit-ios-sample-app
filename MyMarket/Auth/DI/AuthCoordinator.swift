@@ -48,9 +48,11 @@ class AuthCoordinator {
         onSignUp: @escaping () -> Void,
         onLogIn: @escaping () -> Void
     ) -> UIViewController {
+        let logInUseCase = LogInUseCaseImpl(authService: APIAuthService())
+        
         let viewModel = LogInVM(
             credentionalsCollectVM: CredentionalsCollectVM(),
-            logInUseCase: StubLogInUseCase(),
+            logInUseCase: logInUseCase,
             onSignUp: onSignUp,
             onLogIn: onLogIn
         )
