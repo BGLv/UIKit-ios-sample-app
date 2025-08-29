@@ -7,7 +7,8 @@
 import RxSwift
 
 struct AuthToken {
-    let value: String
+    let token: String
+    let refreshToken: String
     let expiresAt: Date
 }
 

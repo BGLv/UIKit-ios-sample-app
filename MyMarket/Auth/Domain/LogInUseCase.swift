@@ -12,15 +12,23 @@ protocol LogInUseCase {
 
 class LogInUseCaseImpl: LogInUseCase {
     private let authService: AuthService
+    private let sessionManager: AnySessionManager
     
-    init(authService: AuthService) {
+    init(authService: AuthService,
+         sessionManager: AnySessionManager) {
         self.authService = authService
+        self.sessionManager = sessionManager
     }
     
     func logIn(phone: String, password: String) -> Single<Void> {
         self.authService.logIn(phone: phone, password: password)
-            .map { authToken in
-            return
+            .flatMap { [sessionManager] authToken in
+                let session = Session(
+                    token: authToken.token,
+                    refreshToken: authToken.refreshToken,
+                    expiresAt: authToken.expiresAt
+                )
+                return sessionManager.start(session: session).andThen(.just(()))
         }
     }
 }

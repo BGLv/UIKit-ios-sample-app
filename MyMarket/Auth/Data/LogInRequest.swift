@@ -13,7 +13,8 @@ enum HttpError: Error {
 }
 
 struct AuthTokenDTO: Decodable {
-    let value: String
+    let token: String
+    let refreshToken: String
     let expiresAt: String
 }
 
@@ -50,7 +51,8 @@ class APIAuthService: AuthService {
                 do {
                     let apiResponse = try JSONDecoder().decode(AuthTokenDTO.self, from: data)
                     observer(.success(AuthToken(
-                        value: apiResponse.value,
+                        token: apiResponse.token,
+                        refreshToken: apiResponse.refreshToken,
                         expiresAt: DateFormatter().date(from: apiResponse.expiresAt) ?? Date()
                     )))
                 } catch {
