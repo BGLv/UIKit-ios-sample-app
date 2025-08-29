@@ -29,14 +29,3 @@ class ViewController: UIViewController {
 
 
 }
-
-protocol AnyViewModel {
-    associatedtype Input
-    associatedtype Output
-    
-    func transform(_: Input) -> Output
-}
-
-
-
-
