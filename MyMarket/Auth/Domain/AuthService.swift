@@ -14,4 +14,5 @@ struct AuthToken {
 
 protocol AuthService {
     func logIn(phone: String, password: String) -> Single<AuthToken>
+    func signUp(phone: String, userName: String, email: String, password: String) -> Single<AuthToken>
 }

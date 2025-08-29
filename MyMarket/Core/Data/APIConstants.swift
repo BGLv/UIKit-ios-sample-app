@@ -13,4 +13,5 @@ enum APIConstants {
 enum Endpoint {
     static let users = "users"
     static let login = "login"
+    static let signup = "signup"
 }

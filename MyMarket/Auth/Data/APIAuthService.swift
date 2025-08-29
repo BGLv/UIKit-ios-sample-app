@@ -20,17 +20,31 @@ struct AuthTokenDTO: Decodable {
 
 class APIAuthService: AuthService {
     func logIn(phone: String, password: String) -> Single<AuthToken> {
-        
-        return Single<AuthToken>.create { observer in
-            guard let url = URL(string: APIConstants.baseURL + Endpoint.login) else {
+        let urlStr = APIConstants.baseURL + Endpoint.login
+        let jsonData = try? JSONEncoder().encode([
+            "phone": phone,
+            "password": password
+        ])
+        return self.performAuthRequest(urlStr: urlStr, jsonData: jsonData)
+    }
+    
+    func signUp(phone: String, userName: String, email: String, password: String) -> Single<AuthToken> {
+        let urlStr = APIConstants.baseURL + Endpoint.signup
+        let jsonData = try? JSONEncoder().encode([
+            "phone": phone,
+            "userName": userName,
+            "email": email,
+            "password": password
+        ])
+        return self.performAuthRequest(urlStr: urlStr, jsonData: jsonData)
+    }
+    
+    private func performAuthRequest(urlStr: String, jsonData: Data?) -> Single<AuthToken> {
+        Single<AuthToken>.create { observer in
+            guard let url = URL(string: urlStr) else {
                 observer(.failure(HttpError.badURL))
                 return Disposables.create()
             }
-            
-            let jsonData = try? JSONEncoder().encode([
-                "phone": phone,
-                "password": password
-            ])
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"

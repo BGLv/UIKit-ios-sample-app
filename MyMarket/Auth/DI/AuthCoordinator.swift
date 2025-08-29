@@ -68,9 +68,13 @@ class AuthCoordinator {
         onAlreadyHaveAccount: @escaping () -> Void,
         onSuccess: @escaping () -> Void
     ) -> UIViewController {
+        let createProfileUseCase = CreateProfileUseCaseImpl(
+            authService: APIAuthService(),
+            sessionManager: KCSessionManager.shared
+        )
         let viewModel = ProfileCreationVM(
             profileCollectVM: ProfileCollectVM(),
-            createProfileUseCase: StubCreateProfileUseCase(),
+            createProfileUseCase: createProfileUseCase,
             onAlreadyHaveAccount: onAlreadyHaveAccount,
             onSuccess: onSuccess
         )
