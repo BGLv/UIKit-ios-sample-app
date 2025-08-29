@@ -7,11 +7,11 @@
 import RxSwift
 
 protocol CreateProfileUseCase {
-    func createProfile(userName: String, email: String, password: String) -> Single<Void>
+    func createProfile(phone: String, userName: String, email: String, password: String) -> Single<Void>
 }
 
 class StubCreateProfileUseCase: CreateProfileUseCase {
-    func createProfile(userName: String, email: String, password: String) -> Single<Void> {
+    func createProfile(phone: String, userName: String, email: String, password: String) -> Single<Void> {
         return .just(())
     }
 }

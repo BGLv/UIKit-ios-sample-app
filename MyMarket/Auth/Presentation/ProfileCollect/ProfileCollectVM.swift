@@ -9,6 +9,7 @@ import RxSwift
 import RxCocoa
 
 struct ProfileData {
+    let phone: String
     let username: String
     let email: String
     let password: String
@@ -45,7 +46,7 @@ class ProfileCollectVM: AnyProfileCollectVM {
                 return nil
             }
             
-            return ProfileData(username: username, email: email, password: passwordInfo.password)
+            return ProfileData(phone: userPhone, username: username, email: email, password: passwordInfo.password)
         }
     }
     var userPhoneTFVM: any AnyMyPhoneNumberTextFieldVM { self._userPhoneTFVM }

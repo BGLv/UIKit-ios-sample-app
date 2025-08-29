@@ -44,6 +44,7 @@ class ProfileCreationVM: AnyProfileCreationVM {
             .compactMap { $0 } // ignore invalid profiles
             .flatMapLatest { [createProfileUseCase] profileData in
                 createProfileUseCase.createProfile(
+                    phone: profileData.phone,
                     userName: profileData.username,
                     email: profileData.email,
                     password: profileData.password
